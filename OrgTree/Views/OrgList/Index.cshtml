@@ -1,0 +1,48 @@
+﻿@model OrgTree.ViewModels.HierarchyViewModel
+
+<div class="row">
+    <h1>Org List Hierarchy</h1>
+    @if (Model.Error != null)
+    {
+        <h4>@Html.Raw(Model.Error.Message)</h4>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @{ for (int i = 1; i <= Model.MaxLevel; i++)
+                                {
+                                    <th>Level @i.ToString()</th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+
+                            for (int i = 0; i < Model.EmployeeHierachyList.Count; i++)
+                            {
+                                <tr>
+                                    @{ for (int j = 1; j <= Model.MaxLevel; j++)
+                                        {
+                                            <td>
+                                                @{if (Model.EmployeeHierachyList[i].Level == j)
+                                                    {
+                                                        @Model.EmployeeHierachyList[i].EmployeeName
+                                                    }
+                                                }
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }                                    
+</div>

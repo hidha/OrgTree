@@ -1,0 +1,56 @@
+﻿@model OrgTree.ViewModels.EmployeeListViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Employee List</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <div class="form-group">
+                <label for="fileLocation">File location: </label>
+                <input type="text" id="fileLocation" name="fileLocation" value="@Model.FileName" class="form-control" />
+            </div>
+            <input type="submit" value="Get Employees" class="btn btn-primary"/>
+        }
+
+        @if (Model.Error != null)
+        {
+            <div>
+                <h3 class="error">@Model.Error.Message</h3>
+            </div>
+        }
+
+        @if (Model.EmployeeList != null)
+        {
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Employee Id</th>
+                            <th>Manager Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var e in Model.EmployeeList)
+                        {
+                            <tr>
+                                <td>@e.EmployeeName</td>
+                                <td>@e.EmployeeId</td>
+                                <td>@e.Manager</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <a href='@Url.Action("Index", "OrgList", new { FileName = Model.FileName })' class="btn btn-primary">Org Structure</a>
+            </div>
+        }
+    </div>
+</div>
